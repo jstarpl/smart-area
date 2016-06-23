@@ -104,6 +104,7 @@ angular.module('smartArea', [])
 
             $timeout(function () {
                 scope.fakeAreaElement.css('width',(parseInt(textArea.outerWidth()) + 1) + 'px');
+                scope.fakeAreaElement.css('height',(parseInt(textArea.outerHeight()) + 1) + 'px');
             });
 
 
