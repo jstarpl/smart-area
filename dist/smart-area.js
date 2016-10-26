@@ -131,8 +131,8 @@ angular.module('smartArea', [])
                     mainWrap.css('padding-bottom', '0');
                     scope.fakeAreaElement.height(textArea.innerHeight());
                   } else {
-                    mainWrap.css('padding-top', null);
-                    mainWrap.css('padding-bottom', null);
+                    mainWrap.css('padding-top', '');
+                    mainWrap.css('padding-bottom', '');
                     scope.fakeAreaElement.height(textArea.height());
                   }
                 } else {
