@@ -82,7 +82,8 @@ angular.module('smartArea', [])
 
             // Build the HTML structure
             var mainWrap = angular.element('<div class="sa-wrapper"></div>'),
-                isFirefox = !(window.mozInnerScreenX === null);
+                isFirefox = !(window.mozInnerScreenX === null),
+                isWebKit = 'WebkitAppearance' in document.documentElement.style;
 
             scope.fakeAreaElement = angular.element($compile('<div class="sa-fakeArea" ng-trim="false" ng-bind-html="fakeArea"></div>')(scope))
                 .appendTo(mainWrap);
@@ -124,7 +125,19 @@ angular.module('smartArea', [])
 
             // Dirty hack to maintain the height
             textArea.on('keyup', function(){
-                scope.fakeAreaElement.height(textArea.height());
+                if (isWebKit) {
+                  if (textArea.innerHeight() < textArea[0].scrollHeight) {
+                    mainWrap.css('padding-top', '0');
+                    mainWrap.css('padding-bottom', '0');
+                    scope.fakeAreaElement.height(textArea.innerHeight());
+                  } else {
+                    mainWrap.css('padding-top', null);
+                    mainWrap.css('padding-bottom', null);
+                    scope.fakeAreaElement.height(textArea.height());
+                  }
+                } else {
+                  scope.fakeAreaElement.height(textArea.height());
+                }
             });
 
             return mainWrap;
